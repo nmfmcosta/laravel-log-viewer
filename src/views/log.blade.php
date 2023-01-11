@@ -66,10 +66,6 @@
     .nowrap {
       white-space: nowrap;
     }
-    .list-group {
-            padding: 5px;
-        }
-
 
 
 
@@ -174,7 +170,7 @@
   <div class="row">
     <div class="col sidebar mb-3">
       <h1><i class="fa fa-calendar" aria-hidden="true"></i> Laravel Log Viewer</h1>
-      <p class="text-muted"><i>by Rap2h</i></p>
+
 
       <div class="custom-control custom-switch" style="padding-bottom:20px;">
         <input type="checkbox" class="custom-control-input" id="darkSwitch">
@@ -184,10 +180,19 @@
       <div class="list-group div-scroll">
         @foreach($folders as $folder)
           <div class="list-group-item">
-            <?php
-            \Rap2hpoutre\LaravelLogViewer\LaravelLogViewer::DirectoryTreeStructure( $storage_path, $structure );
-            ?>
-
+            <a href="?f={{ \Illuminate\Support\Facades\Crypt::encrypt($folder) }}">
+              <span class="fa fa-folder"></span> {{$folder}}
+            </a>
+            @if ($current_folder == $folder)
+              <div class="list-group folder">
+                @foreach($folder_files as $file)
+                  <a href="?l={{ \Illuminate\Support\Facades\Crypt::encrypt($file) }}&f={{ \Illuminate\Support\Facades\Crypt::encrypt($folder) }}"
+                    class="list-group-item @if ($current_file == $file) llv-active @endif">
+                    {{$file}}
+                  </a>
+                @endforeach
+              </div>
+            @endif
           </div>
         @endforeach
         @foreach($files as $file)
@@ -295,7 +300,7 @@
   const darkSwitch = document.getElementById('darkSwitch');
 
   // this is here so we can get the body dark mode before the page displays
-  // otherwise the page will be white for a second... 
+  // otherwise the page will be white for a second...
   initTheme();
 
   window.addEventListener('load', () => {
@@ -308,7 +313,7 @@
   });
 
   // end darkmode js
-        
+
   $(document).ready(function () {
     $('.table-container tr').on('click', function () {
       $('#' + $(this).data('display')).toggle();

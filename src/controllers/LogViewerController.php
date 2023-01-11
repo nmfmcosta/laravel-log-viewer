@@ -1,6 +1,6 @@
 <?php
 
-namespace Rap2hpoutre\LaravelLogViewer;
+namespace LB\LaravelLogViewer;
 
 use Illuminate\Support\Facades\Crypt;
 
@@ -12,7 +12,7 @@ if (class_exists("\\Illuminate\\Routing\\Controller")) {
 
 /**
  * Class LogViewerController
- * @package Rap2hpoutre\LaravelLogViewer
+ * @package LB\LaravelLogViewer
  */
 class LogViewerController extends BaseController
 {
@@ -67,9 +67,6 @@ class LogViewerController extends BaseController
             'files' => $this->log_viewer->getFiles(true),
             'current_file' => $this->log_viewer->getFileName(),
             'standardFormat' => true,
-            'structure' => $this->log_viewer->foldersAndFiles(),
-            'storage_path' => $this->log_viewer->getStoragePath(),
-
         ];
 
         if ($this->request->wantsJson()) {

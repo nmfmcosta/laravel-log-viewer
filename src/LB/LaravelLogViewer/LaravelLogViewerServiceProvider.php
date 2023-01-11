@@ -1,4 +1,4 @@
-<?php namespace Rap2hpoutre\LaravelLogViewer;
+<?php namespace LB\LaravelLogViewer;
 
 use Illuminate\Support\ServiceProvider;
 
